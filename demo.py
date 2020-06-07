@@ -198,7 +198,8 @@ class Dog(Animal):
 
 if __name__ == '__main__':
     with open("ztte.yml", "rb") as f:
-        a = yaml.load(f, Loader=yaml.FullLoader)
+        # a = yaml.load(f, Loader=yaml.FullLoader)
+        a = yaml.safe_load(f)
         cat = a['cat']
         dog = a['dog']
 
