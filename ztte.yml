@@ -1,0 +1,10 @@
+cat:
+  name: 弹弹
+  color: 黑花
+  gender: 公
+  age: 7岁
+dog:
+  name: 仔仔
+  color: 奶白
+  gender: 公
+  age: 5岁
