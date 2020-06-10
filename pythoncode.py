@@ -90,3 +90,9 @@ print(f"小猫的名字叫{cat01.name}，周身{cat01.color}色{cat01.hair}，�
 
 dog01 = Dog(dog['name'], dog['color'], dog['gender'], dog['age'])
 print(f"毛孩子名字叫{dog01.name}，浑身{dog01.color}{dog01.hair},刚刚{dog01.age}的小{dog01.gender}狗,{dog01.Watch_the_house()}")
+
+'''
+pytest 作业一
+'''
+import pytest
+
