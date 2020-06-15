@@ -114,5 +114,52 @@
 # fun04(1, 2, b=3)                #a按照位置，args按照位置，但是args后面参数必须按照关键字，所以b=3，默认参数可以不传，字典双星可以不传
 # fun04(a=1, 2, b=3, c="CC")      #a按照关键字，args按照位置，但是args后面参数必须按照关键字，所以b=3，默认参数更改为大C，字典双星可以不传
 # fun04(1, 2, b=3, c="CC", f=5)   #多了一个f=5是传给字典双星。
+import pytest
+class Testcalls01:
+
+    @pytest.mark.dependency(name="a01")
+    def test_a01(self):
+        pass
+    @pytest.mark.dependency(depends=["a01"])
+    def test_a02(self):
+        pass
+
+class TestClass(object):
+
+    @pytest.mark.run(order=2)
+    @pytest.mark.dependency(depends=["TestClass::test_b"])
+    def test_d(self):
+        pass
+    @pytest.mark.run(order=1)
+    @pytest.mark.dependency()
+    def test_b(self):
+        pass
 
 
+
+class TestClassNamed(object):
+
+    @pytest.mark.dependency(name="a")
+    @pytest.mark.xfail(reason="deliberate fail")
+    def test_a(self):
+        assert False
+
+    @pytest.mark.dependency(name="b")
+    def test_b(self):
+        pass
+
+    @pytest.mark.dependency(name="c", depends=["a"])
+    def test_c(self):
+        pass
+
+    @pytest.mark.dependency(name="d", depends=["b"])
+    def test_d(self):
+        pass
+
+    @pytest.mark.dependency(name="e", depends=["b", "c"])
+    def test_e(self):
+        pass
+
+
+if __name__ == '__main__':
+    pytest.main()
