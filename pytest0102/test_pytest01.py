@@ -4,7 +4,7 @@ import allure
 
 @allure.feature("计算机测试集")
 class Test_cacle:
-    with open('pyzt.yml', 'rb') as f:
+    with open('/Users/zhangtao/PycharmProjects/pyzt1/pytest0102/pyzt.yml', 'rb') as f:
         data = yaml.safe_load(f)
         print(data)
 
@@ -21,9 +21,13 @@ class Test_cacle:
     @pytest.mark.run(order=1)       #更改排序为第一
     @pytest.mark.dependency(name="adda")        #被依赖
     @allure.story("加法测试")       # allure story方法
-    @pytest.mark.parametrize(['a', 'b', 'sum_c'], data['add'])      #参数化数据
+    @pytest.mark.parametrize(['a', 'b', 'sum_c'], data['add'], ids=['add1', 'add2', 'add3', 'add4', 'add5', 'add6', 'add7', 'add8', 'add9'])  #重命名参数化数据
     def test_add(self, a, b, sum_c):
         assert sum_c == a + b
+        # pytest.assume(sum_c != a+b)
+        # pytest.assume(sum_c == a+b)
+        # pytest.assume(sum_c < a+b)
+
         print(f"{a}+{b}={sum_c}")
         return sum_c
 
@@ -44,6 +48,7 @@ class Test_cacle:
 
     @pytest.mark.dependency(depends=["multiply"])
     @allure.story("除法测试")
+    @pytest.mark.flaky(reruns=2, reruns_delay=1)
     # @allure.attach('文本', attachment_type=allure.attachment_type.TEXT)
     # @allure.attach('<body>html</body>', attachment_type=allure.attachment_type.HTML)
     # @allure.attach.file('图片地址', name="这是图片", attachment_type=allure.attachment_type.JPG)
