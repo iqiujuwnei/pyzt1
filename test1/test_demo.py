@@ -37,6 +37,13 @@
 #
 # if __name__ == '__main__':
 #     main()
+from time import sleep
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+
 '''
 列表的排序：关键是传如的可变参数，函数直接改变了参数本身。所以可以直接打印参数
 '''
@@ -105,6 +112,8 @@
 主要强调：第一位可以位置可以关键字，元祖星后面参数必须用关键字。默认参数可传可不传，字典双星也是可传可不传。
 元祖单星在最后也是可传可不传
 '''
+
+
 # def fun04(a, *args, b, c="cc", **kwargs):
 #     print(a)
 #     print(args)
@@ -114,52 +123,122 @@
 # fun04(1, 2, b=3)                #a按照位置，args按照位置，但是args后面参数必须按照关键字，所以b=3，默认参数可以不传，字典双星可以不传
 # fun04(a=1, 2, b=3, c="CC")      #a按照关键字，args按照位置，但是args后面参数必须按照关键字，所以b=3，默认参数更改为大C，字典双星可以不传
 # fun04(1, 2, b=3, c="CC", f=5)   #多了一个f=5是传给字典双星。
-import pytest
-class Testcalls01:
+# import pytest
+# class Testcalls01:
+#
+#     @pytest.mark.dependency(name="a01")
+#     def test_a01(self):
+#         pass
+#     @pytest.mark.dependency(depends=["a01"])
+#     def test_a02(self):
+#         pass
+#
+# class TestClass(object):
+#
+#     @pytest.mark.run(order=2)
+#     @pytest.mark.dependency(depends=["TestClass::test_b"])
+#     def test_d(self):
+#         pass
+#     @pytest.mark.run(order=1)
+#     @pytest.mark.dependency()
+#     def test_b(self):
+#         pass
+#
+#
+#
+# class TestClassNamed(object):
+#
+#     @pytest.mark.dependency(name="a")
+#     @pytest.mark.xfail(reason="deliberate fail")
+#     def test_a(self):
+#         assert False
+#
+#     @pytest.mark.dependency(name="b")
+#     def test_b(self):
+#         pass
+#
+#     @pytest.mark.dependency(name="c", depends=["a"])
+#     def test_c(self):
+#         pass
+#
+#     @pytest.mark.dependency(name="d", depends=["b"])
+#     def test_d(self):
+#         pass
+#
+#     @pytest.mark.dependency(name="e", depends=["b", "c"])
+#     def test_e(self):
+#         pass
+#
+#
+# if __name__ == '__main__':
+#     pytest.main()
 
-    @pytest.mark.dependency(name="a01")
-    def test_a01(self):
-        pass
-    @pytest.mark.dependency(depends=["a01"])
-    def test_a02(self):
-        pass
-
-class TestClass(object):
-
-    @pytest.mark.run(order=2)
-    @pytest.mark.dependency(depends=["TestClass::test_b"])
-    def test_d(self):
-        pass
-    @pytest.mark.run(order=1)
-    @pytest.mark.dependency()
-    def test_b(self):
-        pass
-
-
-
-class TestClassNamed(object):
-
-    @pytest.mark.dependency(name="a")
-    @pytest.mark.xfail(reason="deliberate fail")
-    def test_a(self):
-        assert False
-
-    @pytest.mark.dependency(name="b")
-    def test_b(self):
-        pass
-
-    @pytest.mark.dependency(name="c", depends=["a"])
-    def test_c(self):
-        pass
-
-    @pytest.mark.dependency(name="d", depends=["b"])
-    def test_d(self):
-        pass
-
-    @pytest.mark.dependency(name="e", depends=["b", "c"])
-    def test_e(self):
-        pass
+# class TestWait:
+#     def setup(self):
+#         self.driver = webdriver.Chrome()
+#         self.driver.get("http://www.baidu.com")
+#         self.driver.implicitly_wait(3)
+#
+#     def teardown(self):
+#         self.driver.quit()
+#
+#     def test_wait(self):
+#         # sleep(3)
+#         self.driver.find_element(By.XPATH, '//*[@id="kw"]').click()
+#         self.driver.find_element(By.XPATH, '//*[@id="kw"]').send_keys("kaixin")
+#         self.driver.find_element(By.CSS_SELECTOR, '#su').click()
+#         WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, '//*[@class="toindex"]')))
+import json
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 
-if __name__ == '__main__':
-    pytest.main()
+class TestCookie():
+
+    def setup(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get("https://work.weixin.qq.com/wework_admin/loginpage_wx")
+
+    def test_get_cookie(self):
+        time.sleep(15)
+        # 一定要在扫码，登录成功之后执行
+        cookies = self.driver.get_cookies()
+        with open("cookie.json", "w") as f:
+            json.dump(cookies, f)
+
+    def test_cookie_login(self):
+        cookies = json.load(open("cookie.json"))
+        for cookie in cookies:
+            # 添加一个dict的cookie信息，把cookie键值对，一个一个的塞入浏览器中
+            self.driver.add_cookie(cookie)
+        # 如果代码没有问题，但是还是没有成功，多加等待时间
+        # time.sleep(10)
+        #刷新\
+        while True:
+            self.driver.refresh()
+            res = WebDriverWait(self.driver, 10).\
+                until(expected_conditions.element_to_be_clickable((By.ID, "menu_index")))
+            if res is not None:
+                break
+        # expected_conditions.xx 都需要传入的是一个元祖
+        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable
+                    ((By.CSS_SELECTOR, ".index_service_cnt_itemWrap:nth-child(2)")))
+        self.driver.find_element(By.CSS_SELECTOR, ".index_service_cnt_itemWrap:nth-child(2)").click()
+        WebDriverWait(self.driver, 10).until(
+            expected_conditions.presence_of_element_located((By.ID, "js_upload_file_input")))
+        # sendkeys需要使用绝对路径
+        self.driver.find_element(By.ID, "js_upload_file_input").\
+            send_keys("/Users/lixu/project/hogwarts/HogwartsLG2/test_selenium/data/workbook.xlsx")
+        WebDriverWait(self.driver, 10).until(
+            expected_conditions.presence_of_element_located((By.ID, "upload_file_name")))
+        assert_ele = self.driver.find_element(By.ID, "upload_file_name").text
+        print(assert_ele)
+        assert assert_ele == "workbook.xlsx"
+
+
+
+    def teardown(self):
+        self.driver.quit()
