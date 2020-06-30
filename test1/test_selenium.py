@@ -87,6 +87,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import al
 
 
 class TestDenglu():
@@ -122,10 +123,7 @@ class TestDenglu():
         actions.move_to_element(element).release().perform()
         self.driver.find_element(By.CSS_SELECTOR, ".index_handler-9MIt6").click()
         self.driver.find_element(By.CSS_SELECTOR, ".ant-btn").click()
-        self.driver.find_element(By.CSS_SELECTOR, ".ant-btn:nth-child(2)").click()
-        self.driver.find_element(By.LINK_TEXT, "会员日报数据").click()
-        self.driver.find_element(By.LINK_TEXT, "会员月报数据").click()
-        self.vars["window_handles"] = self.driver.window_handles
+
 
 
 class Testb:

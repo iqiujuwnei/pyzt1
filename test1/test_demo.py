@@ -37,10 +37,13 @@
 #
 # if __name__ == '__main__':
 #     main()
+import os
 from time import sleep
 
 from selenium import webdriver
+from selenium.webdriver import ActionChains, TouchActions
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -60,7 +63,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 位置和关键字
 位置传参必须一一对应
 关键字参数可以打乱顺序
-要注意解压的列表/元祖/字典的值（尤其是元祖是否对应函数的参数名称）
+要注意解压的列表/元祖/字典的值（尤其是字典里面的key是否对应函数的参数名称）
 '''
 # 实例
 # def fun01(a,b):
@@ -188,57 +191,130 @@ from selenium.webdriver.support.wait import WebDriverWait
 #         self.driver.find_element(By.XPATH, '//*[@id="kw"]').send_keys("kaixin")
 #         self.driver.find_element(By.CSS_SELECTOR, '#su').click()
 #         WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, '//*[@class="toindex"]')))
-import json
-import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+# import json
+# import time
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support import expected_conditions
+# from selenium.webdriver.support.wait import WebDriverWait
+#
+#
+# class TestCookie():
+#
+#     def setup(self):
+#         self.driver = webdriver.Chrome()
+#         self.driver.get("https://work.weixin.qq.com/wework_admin/loginpage_wx")
+#
+#     def test_get_cookie(self):
+#         time.sleep(15)
+#         # 一定要在扫码，登录成功之后执行
+#         cookies = self.driver.get_cookies()
+#         with open("cookie.json", "w") as f:
+#             json.dump(cookies, f)
+#
+#     def test_cookie_login(self):
+#         cookies = json.load(open("cookie.json"))
+#         for cookie in cookies:
+#             # 添加一个dict的cookie信息，把cookie键值对，一个一个的塞入浏览器中
+#             self.driver.add_cookie(cookie)
+#         # 如果代码没有问题，但是还是没有成功，多加等待时间
+#         # time.sleep(10)
+#         #刷新\
+#         while True:
+#             self.driver.refresh()
+#             res = WebDriverWait(self.driver, 10).\
+#                 until(expected_conditions.element_to_be_clickable((By.ID, "menu_index")))
+#             if res is not None:
+#                 break
+#         # expected_conditions.xx 都需要传入的是一个元祖
+#         WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable
+#                     ((By.CSS_SELECTOR, ".index_service_cnt_itemWrap:nth-child(2)")))
+#         self.driver.find_element(By.CSS_SELECTOR, ".index_service_cnt_itemWrap:nth-child(2)").click()
+#         WebDriverWait(self.driver, 10).until(
+#             expected_conditions.presence_of_element_located((By.ID, "js_upload_file_input")))
+#         # sendkeys需要使用绝对路径
+#         self.driver.find_element(By.ID, "js_upload_file_input").\
+#             send_keys("/Users/lixu/project/hogwarts/HogwartsLG2/test_selenium/data/workbook.xlsx")
+#         WebDriverWait(self.driver, 10).until(
+#             expected_conditions.presence_of_element_located((By.ID, "upload_file_name")))
+#         assert_ele = self.driver.find_element(By.ID, "upload_file_name").text
+#         print(assert_ele)
+#         assert assert_ele == "workbook.xlsx"
+#
+#
+#
+#     def teardown(self):
+#         self.driver.quit()
 
+# #
+# class TestLocaor:
+#
+#     def setup(self):
+#         self.driver = webdriver.Chrome()
+#         self.driver.get("https://store.gaojihealth.cn/user/login")
+#         self.driver.maximize_window()
+#
+#     # def teardown(self):
+#     #     self.driver.quit()
+#
+#     # def test_locator(self):
+#     #     self.driver.find_element(By.CSS_SELECTOR, '#kw').click()
+#     #     self.driver.find_element(By.CSS_SELECTOR, '[id=kw]').send_keys('kaixin')
+#     #     se = self.driver.find_element(By.CSS_SELECTOR, "#kw").get_attribute('id')
+#     #
+#     #     print(se)
+#
+#     def test_action(self):
+#         action = ActionChains(self.driver)
+#         # action.click(self.driver.find_element_by_css_selector('#kw'))
+#         # action.double_click(self.driver.find_element_by_css_selector("#kw"))
+#         # ele = self.driver.find_element_by_css_selector("#s-usersetting-top")
+#         # action.move_to_element(ele)
+#         # sleep(10)
+#         # action.context_click(self.driver.find_element_by_css_selector("#su"))
+#         self.driver.find_element_by_css_selector("#username").click()
+#         self.driver.find_element_by_css_selector("#username").send_keys("18291733117")
+#         self.driver.find_element_by_css_selector("#password").click()
+#         self.driver.find_element_by_css_selector("#password").send_keys("123qaz")
+#         drag_el = self.driver.find_element_by_css_selector(".index_handler-9MIt6")
+#         drop_el = self.driver.find_element_by_css_selector(".index_dragImgBig-1xhJg")
+#         drep_el = self.driver.find_element(By.CSS_SELECTOR, ".index_drag_text-3HvDN")
+#         action.click_and_hold(drag_el).pause(3)
+#         action.move_to_element(drep_el).pause(3)
+#         action.move_to_element(drep_el).release().pause(3)
+#         action.click(drag_el)
+#         self.driver.find_element_by_css_selector(".ant-btn").click()
+#         self.driver.find_element_by_css_selector(".ant-btn:nth-child(1)").click()
+# #
+# #
+# #         action.perform()
+#
+# from selenium import webdriver
+# class TestTouch:
+#     def setup(self):
+#         option = webdriver.ChromeOptions()
+#         option.add_experimental_option('w3c', False)
+#         self.driver = webdriver.Chrome(options=option)
+#         self.driver.get("http://www.baidu.com")
+#         self.driver.implicitly_wait(5)
+#     def test_touch(self):
+#         ele = self.driver.find_element_by_id("kw")
+#         ele1 = self.driver.find_element_by_id("su")
+#         ele.send_keys("测试")
+#         action = TouchActions(self.driver)
+#         action.tap(ele1)
+#         action.scroll_from_element(ele1, xoffset=0, yoffset=10000)
+#         action.perform()
 
-class TestCookie():
-
+class TestFrom:
     def setup(self):
-        self.driver = webdriver.Chrome()
-        self.driver.get("https://work.weixin.qq.com/wework_admin/loginpage_wx")
+        brows = os.getenv('brows')
+        if brows == "a":
+            self.driver = webdriver.Chrome()
+        else:
+            self.driver = webdriver.Firefox()
+        self.driver.get("http://www.baidu.com")
+        self.driver.implicitly_wait(5)
 
-    def test_get_cookie(self):
-        time.sleep(15)
-        # 一定要在扫码，登录成功之后执行
-        cookies = self.driver.get_cookies()
-        with open("cookie.json", "w") as f:
-            json.dump(cookies, f)
-
-    def test_cookie_login(self):
-        cookies = json.load(open("cookie.json"))
-        for cookie in cookies:
-            # 添加一个dict的cookie信息，把cookie键值对，一个一个的塞入浏览器中
-            self.driver.add_cookie(cookie)
-        # 如果代码没有问题，但是还是没有成功，多加等待时间
-        # time.sleep(10)
-        #刷新\
-        while True:
-            self.driver.refresh()
-            res = WebDriverWait(self.driver, 10).\
-                until(expected_conditions.element_to_be_clickable((By.ID, "menu_index")))
-            if res is not None:
-                break
-        # expected_conditions.xx 都需要传入的是一个元祖
-        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable
-                    ((By.CSS_SELECTOR, ".index_service_cnt_itemWrap:nth-child(2)")))
-        self.driver.find_element(By.CSS_SELECTOR, ".index_service_cnt_itemWrap:nth-child(2)").click()
-        WebDriverWait(self.driver, 10).until(
-            expected_conditions.presence_of_element_located((By.ID, "js_upload_file_input")))
-        # sendkeys需要使用绝对路径
-        self.driver.find_element(By.ID, "js_upload_file_input").\
-            send_keys("/Users/lixu/project/hogwarts/HogwartsLG2/test_selenium/data/workbook.xlsx")
-        WebDriverWait(self.driver, 10).until(
-            expected_conditions.presence_of_element_located((By.ID, "upload_file_name")))
-        assert_ele = self.driver.find_element(By.ID, "upload_file_name").text
-        print(assert_ele)
-        assert assert_ele == "workbook.xlsx"
-
-
-
-    def teardown(self):
-        self.driver.quit()
+    def test_from(self):
+        self.driver.find_element_by_id("kw")
