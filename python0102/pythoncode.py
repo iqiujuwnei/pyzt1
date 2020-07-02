@@ -82,6 +82,7 @@ if __name__ == '__main__':
     with open("/Users/zhangtao/PycharmProjects/pyzt1/python0102/ztte.yml", "rb") as f:
         # a = yaml.load(f, Loader=yaml.FullLoader)
         a = yaml.safe_load(f)
+        print(a)
         cat = a['cat']
         dog = a['dog']
 
