@@ -7,6 +7,10 @@ from appium0102.appium01.base.teamIput import TeamIput
 class AddTeam(BasePage):
 
     def add_team(self):
+        '''
+        用户列表页面，手动添加
+        :return:
+        '''
 
         self.find(MobileBy.XPATH, "//*[@text='手动输入添加']").click()
         return TeamIput(self._driver)

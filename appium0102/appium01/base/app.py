@@ -8,6 +8,10 @@ from appium0102.appium01.base.main import Main
 class App(BasePage):
 
     def start(self):
+        '''
+        配置基础信息
+        :return:
+        '''
 
         if self._driver is None:
             ap_dec = {
@@ -25,4 +29,8 @@ class App(BasePage):
 
         return self
     def main(self):
+        '''
+        调用main函数
+        :return:
+        '''
         return Main(self._driver)

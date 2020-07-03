@@ -10,6 +10,10 @@ from appium0102.appium01.base.toaluser import ToaLUser
 class EditUser(BasePage):
 
     def edituser(self):
+        '''
+        单个用户的删除，用户编辑页面点击删除
+        :return:
+        '''
 
         self.find(MobileBy.XPATH, "//*[@text='删除成员']").click()
         self.find(MobileBy.XPATH, "//*[@text='确定']").click()

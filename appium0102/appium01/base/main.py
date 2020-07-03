@@ -7,6 +7,10 @@ from appium0102.appium01.base.team import Team
 class Main(BasePage):
 
     def goto_team(self):
+        '''
+        在首页进入团队列表页面
+        :return:
+        '''
         self._driver.find_element(MobileBy.XPATH, "//*[@text='团队']").click()
 
         # self.find(MobileBy.XPATH, "//*[@class='android.widget.TextView']")

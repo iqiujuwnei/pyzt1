@@ -6,6 +6,11 @@ class ToaLUser(BasePage):
 
 
     def toaluser(self):
+        '''
+        会员列表信息，用来校验用户删除后是否成功
+        定位到已离职的元素
+        :return:
+        '''
         c = self.steps("../base/ztapp.yaml")
         uname = c['name']
         user_tag = self._driver.find_elements(MobileBy.XPATH, f"//*[@text='{uname}']/../../android.widget.ImageView")
