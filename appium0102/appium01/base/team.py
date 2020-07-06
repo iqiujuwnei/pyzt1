@@ -20,18 +20,18 @@ class Team(BasePage):
         return AddTeam(self._driver)
 
 
-    def tapuser(self):
+    def tapuser(self,name):
         '''
         滑动查找用户名字
         :return:
         '''
-        b = self.steps("../base/ztapp.yaml")
-        uname = b['name']
+        # b = self.steps("../base/ztapp.yaml")
+        # uname = b['name']
         # print(type(uname))
         # print(uname)
         self._driver.find_element_by_android_uiautomator(f'new UiScrollable(new UiSelector().'
                                                          f'scrollable(true).instance(0)).'
-                                                         f'scrollIntoView(new UiSelector().text("{uname}").instance(0));').click()
+                                                         f'scrollIntoView(new UiSelector().text("{name}").instance(0));').click()
         return PersonInfo(self._driver)
 
 

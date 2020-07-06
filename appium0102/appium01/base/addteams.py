@@ -12,5 +12,5 @@ class AddTeam(BasePage):
         :return:
         '''
 
-        self.find(MobileBy.XPATH, "//*[@text='手动输入添加']").click()
+        self.find_clck(MobileBy.XPATH, "//*[@text='手动输入添加']")
         return TeamIput(self._driver)

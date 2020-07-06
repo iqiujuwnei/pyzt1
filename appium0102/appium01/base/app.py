@@ -30,7 +30,7 @@ class App(BasePage):
         return self
     def main(self):
         '''
-        调用main函数
+        调用main函数d
         :return:
         '''
         return Main(self._driver)

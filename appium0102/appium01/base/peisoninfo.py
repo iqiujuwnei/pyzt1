@@ -12,6 +12,6 @@ class PersonInfo(BasePage):
         :return:
         '''
 
-        self.find(MobileBy.XPATH, "//*[@text='个人信息']/../../../../..//android.widget.RelativeLayout").click()
+        self.find_clck(MobileBy.XPATH, "//*[@text='个人信息']/../../../../..//android.widget.RelativeLayout")
 
         return SetUser(self._driver)

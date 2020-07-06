@@ -11,7 +11,7 @@ class Main(BasePage):
         在首页进入团队列表页面
         :return:
         '''
-        self._driver.find_element(MobileBy.XPATH, "//*[@text='团队']").click()
+        self.find_clck(MobileBy.XPATH, "//*[@text='团队']")
 
         # self.find(MobileBy.XPATH, "//*[@class='android.widget.TextView']")
         # self.find(MobileBy.XPATH, "//*[@text='团队']").click()

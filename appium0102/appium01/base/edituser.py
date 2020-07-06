@@ -15,8 +15,8 @@ class EditUser(BasePage):
         :return:
         '''
 
-        self.find(MobileBy.XPATH, "//*[@text='删除成员']").click()
-        self.find(MobileBy.XPATH, "//*[@text='确定']").click()
+        self.find_clck(MobileBy.XPATH, "//*[@text='删除成员']")
+        self.find_clck(MobileBy.XPATH, "//*[@text='确定']")
         sleep(5)#页面反应迟钝，加了强制等待。后续优化为显式等待
 
         return ToaLUser(self._driver)

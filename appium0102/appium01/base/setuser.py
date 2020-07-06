@@ -12,5 +12,5 @@ class SetUser(BasePage):
         :return:
         '''
 
-        self.find(MobileBy.XPATH, "//*[@text='编辑成员']").click()
+        self.find_clck(MobileBy.XPATH, "//*[@text='编辑成员']")
         return EditUser(self._driver)
