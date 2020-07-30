@@ -9,6 +9,7 @@ class TestRest:
         datas = yaml.safe_load(f)
         # print(datas)
         # print(datas['add'])
+
     s = requests.Session() #调用session方法，跨请求保持数据
     def setup(self):
         params = {
