@@ -1,0 +1,9 @@
+- by: id
+  locator: "search_input_text"
+  action: send
+  value: "pinduoduo"
+
+- by: id
+  locator: "search_input_text"
+  action: send
+  value: "alibaba"

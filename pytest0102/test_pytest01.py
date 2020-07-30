@@ -11,7 +11,7 @@ class Test_cacle:
     @pytest.mark.run(order=2)       #更改排序为第二
     @pytest.mark.dependency(depends=["adda"]) #执行依赖加法
     @allure.story("减法测试")       # allure story方法
-    @allure.severity(allure.severity_level.TRIVIAL)     # allure 级别不重要  默认是normal
+    @allure.severity(allure.severity_level.TRIVIAL)     # allure 级别：不重要  默认是normal
     @pytest.mark.add1       #增加的执行标签
     @pytest.mark.parametrize(['a', 'b', 'subtract'], data['sub'])  #参数化数据
     def check_subtract(self, a, b, subtract):     #更改了执行规则check_* 和 test_*
@@ -48,7 +48,7 @@ class Test_cacle:
 
     @pytest.mark.dependency(depends=["multiply"])
     @allure.story("除法测试")
-    @pytest.mark.flaky(reruns=2, reruns_delay=1)
+    # @pytest.mark.flaky(reruns=2, reruns_delay=1)
     # @allure.attach('文本', attachment_type=allure.attachment_type.TEXT)
     # @allure.attach('<body>html</body>', attachment_type=allure.attachment_type.HTML)
     # @allure.attach.file('图片地址', name="这是图片", attachment_type=allure.attachment_type.JPG)

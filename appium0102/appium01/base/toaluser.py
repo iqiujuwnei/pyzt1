@@ -9,6 +9,7 @@ class ToaLUser(BasePage):
         '''
         会员列表信息，用来校验用户删除后是否成功
         定位到已离职的元素
+        WebDriverWait(self.driver, 15).until_not(lambda x:x.find_element_by_xpath(f"//*[@text='{username}']"))
         :return:
         '''
         # c = self.steps("../base/ztapp.yaml")

@@ -38,7 +38,7 @@
 # if __name__ == '__main__':
 #     main()
 import os
-from time import sleep
+from time import sleep, time
 
 from selenium import webdriver
 from selenium.webdriver import ActionChains, TouchActions
@@ -48,7 +48,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 '''
-列表的排序：关键是传如的可变参数，函数直接改变了参数本身。所以可以直接打印参数
+列表的排序：关键是传入的可变参数，函数直接改变了参数本身。所以可以直接打印参数
 '''
 # def bidui(list01):
 #     for i in range(len(list01)-1):
@@ -318,3 +318,5 @@ class TestFrom:
 
     def test_from(self):
         self.driver.find_element_by_id("kw")
+
+

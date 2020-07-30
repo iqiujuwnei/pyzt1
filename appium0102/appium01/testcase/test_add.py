@@ -1,9 +1,10 @@
 import yaml
-
+import sys
+sys.path.append('/Users/zhangtao/PycharmProjects/pyzt1')
 from appium0102.appium01.base.app import App
 import pytest
 
-with open("../base/ztapp.yaml", encoding='utf-8') as f:
+with open("/Users/zhangtao/PycharmProjects/pyzt1/appium0102/appium01/base/ztapp.yaml", encoding='utf-8') as f:
     datas = yaml.safe_load(f)
     data_ad = datas['ad']
     data_de = datas['de']
