@@ -11,8 +11,8 @@ class TestRest:
 
     def test_get_token(self):
         params = {
-              "corpid": "wwba36badfb10abc79",
-              "corpsecret": "P05mVM5qvKDoCu2hpqivgkrezhv7X7PyAc5o_lgMyk0"
+            "corpid": "wwba36badfb10abc79",
+            "corpsecret": "P05mVM5qvKDoCu2hpqivgkrezhv7X7PyAc5o_lgMyk0"
         }
         result = requests.get(url='https://qyapi.weixin.qq.com/cgi-bin/gettoken', params=params)
         # print(result.text)
@@ -23,7 +23,8 @@ class TestRest:
             return token
         except Exception as e:
             raise ValueError("token is invalid")
-    @pytest.mark.parametrize(('userid','name','mobile'), datas['add'])
+
+    @pytest.mark.parametrize(('userid', 'name', 'mobile'), datas['add'])
     def test_user_create(self, userid, name, mobile):
         data = {
             "userid": userid,
@@ -39,6 +40,7 @@ class TestRest:
     for i in datas['add']:
         new_list.append(i[0])
         # print(new_list)
+
     # @pytest.mark.parametrize('a', datas['add']) 直接传带userID的列表也能通过
     @pytest.mark.parametrize('userid', new_list)
     def test_user_read(self, userid):
@@ -59,6 +61,7 @@ class TestRest:
         }
         result3 = requests.post(url=f"https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={token}", json=data)
         print(result3.json())
+
     @pytest.mark.parametrize('userid', new_list)
     def test_user_delete(self, userid):
         data = {
