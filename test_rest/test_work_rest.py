@@ -11,7 +11,7 @@ class TestRest:
         # print(datas['add'])
 
     s = requests.Session() #调用session方法，跨请求保持数据
-    def setup(self):
+    def test_user_token(self):
         params = {
             "corpid": "wwba36badfb10abc79",
             "corpsecret": "P05mVM5qvKDoCu2hpqivgkrezhv7X7PyAc5o_lgMyk0"
